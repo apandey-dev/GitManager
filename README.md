@@ -10,7 +10,7 @@
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Android-green.svg?style=for-the-badge&logo=android)](https://www.android.com)
 
-*A clean, distraction-free monochrome GitHub manager featuring full repository CRUD, offline QR sharing, explore engine, custom Mali typography, and native GitHub OAuth/PAT authentication.*
+_A clean, distraction-free monochrome GitHub manager featuring full repository CRUD, offline QR sharing, explore engine, custom Mali typography, and native GitHub OAuth/PAT authentication._
 
 </div>
 
@@ -29,25 +29,40 @@
 
 ---
 
-## 📸 Key Features
+## 📸 App Screenshots
 
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                              GitManager                                 │
-├───────────────────┬───────────────────┬───────────────────┬─────────────┤
-│  ⚡ Dashboard     │  📦 Repositories  │  🔍 Explore Users │  ⚙️ Settings│
-│  - Profile Stats  │  - Public/Private │  - Global Search  │  - Dark Mode│
-│  - Quick Actions  │  - Instant CRUD   │  - Profile View   │  - Slide to │
-│  - Recent Repos   │  - QR & Card Share│  - User Repos     │    Logout   │
-└───────────────────┴───────────────────┴───────────────────┴─────────────┘
-```
+<div align="center">
+  <table>
+    <tr>
+      <td align="center"><b>Login & OAuth</b></td>
+      <td align="center"><b>Dashboard</b></td>
+      <td align="center"><b>Repositories</b></td>
+      <td align="center"><b>Explore Users</b></td>
+      <td align="center"><b>Settings</b></td>
+    </tr>
+    <tr>
+      <td><img src="public/Login.jpg" width="180"/></td>
+      <td><img src="public/Home.jpg" width="180"/></td>
+      <td><img src="public/Repos.jpg" width="180"/></td>
+      <td><img src="public/Explore.jpg" width="180"/></td>
+      <td><img src="public/Settings.jpg" width="180"/></td>
+    </tr>
+  </table>
+</div>
+
+---
+
+## ⚡ Key Features
+
 
 ### 1. 🐙 Native GitHub Authentication
+
 - **OAuth Web Flow**: Authorize directly via GitHub in your browser with smooth deep-linking (`gitmanager://oauth`).
 - **Interactive Authenticating Animation**: Fullscreen animated pulsing Octocat logo with dynamic verification status updates while exchanging tokens.
 - **Personal Access Token Slider**: Enter any GitHub classic PAT with custom pre-configured permissions.
 
 ### 2. 📁 Comprehensive Repository Management (CRUD)
+
 - **Create**: Create public or private repositories with custom descriptions directly from the app.
 - **Edit**: Real-time editing of repo names, descriptions, and privacy status with custom modal bottom sheets.
 - **Delete**: Safe permanent deletion with double-confirmation modal sheets.
@@ -55,15 +70,18 @@
 - **README Viewer**: Built-in Base64 decoded Markdown README reader.
 
 ### 3. 📱 Repository QR Codes & Social Cards
+
 - Live offline QR code rendering for any repository URL.
 - One-tap link copying and system sharing.
 - Generate and export clean preview cards to showcase your projects.
 
 ### 4. 🧭 User Discovery & Search
+
 - Paginated real-time GitHub user search with avatar caching.
 - Deep dive into any developer's public profile, bio, location, followers, and public repositories.
 
 ### 5. 🎛️ Settings & Account Control
+
 - Toggle between Monochrome Day and Dark themes with instant DataStore persistence.
 - Masked token security indicator.
 - **Slide to Sign Out**: iOS-style draggable gesture button with danger feedback.
@@ -94,6 +112,7 @@ flowchart TD
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Android Studio Ladybug (2024.2+) or newer
 - JDK 17+
 - Android SDK 24+ (Android 7.0 Nougat or higher)
@@ -101,8 +120,9 @@ flowchart TD
 ### Installation & Build
 
 1. **Clone the repository**:
+
    ```bash
-   git clone https://github.com/your-username/gitmanager.git
+   git clone https://github.com/apandey-dev/gitmanager.git
    cd gitmanager
    ```
 
@@ -112,6 +132,7 @@ flowchart TD
    - Paste your `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET` in [`Constants.kt`](app/src/main/java/com/gitmanager/app/core/utils/Constants.kt).
 
 3. **Build and Install Debug APK**:
+
    ```bash
    # Windows PowerShell
    .\gradlew.bat assembleDebug
@@ -125,6 +146,7 @@ flowchart TD
 ## 📦 Releases
 
 Pre-compiled APKs are available in the **[Releases](../../releases)** section:
+
 - **`app-debug.apk`**: Direct debug build for testing on any Android device.
 
 ---
@@ -132,6 +154,7 @@ Pre-compiled APKs are available in the **[Releases](../../releases)** section:
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
+
 1. Fork the project.
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`).
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).

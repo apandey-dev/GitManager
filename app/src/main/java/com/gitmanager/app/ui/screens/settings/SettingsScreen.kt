@@ -165,14 +165,20 @@ fun SettingsScreen(
                         )
                         Spacer(modifier = Modifier.width(12.dp))
                         Column {
+                            val authMethod = when {
+                                accessToken.startsWith("gho_") -> "GitHub Login (OAuth 2.0)"
+                                accessToken.startsWith("ghp_") -> "Personal Access Token (PAT)"
+                                accessToken.isNotEmpty() -> "GitHub Login (OAuth 2.0)"
+                                else -> "Not Authenticated"
+                            }
                             Text(
-                                text = "Access Token",
+                                text = "Authentication Method",
                                 style = MaterialTheme.typography.titleSmall,
                                 fontWeight = FontWeight.SemiBold,
                                 color = MaterialTheme.colorScheme.onSurface
                             )
                             Text(
-                                text = if (accessToken.isNotEmpty()) "Masked: ${accessToken.take(4)}••••••••${accessToken.takeLast(4)}" else "OAuth Session",
+                                text = "$authMethod • Active",
                                 style = MaterialTheme.typography.labelSmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
