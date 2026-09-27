@@ -158,6 +158,7 @@ fun AppNavHost(
                 SettingsScreen(
                     authRepository = authRepository,
                     onLogoutClick = {
+                        authViewModel.resetState()
                         navController.navigate(Screen.Login.route) {
                             popUpTo(0) { inclusive = true }
                         }

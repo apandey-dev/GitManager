@@ -76,4 +76,14 @@ class AuthViewModel(
             }
         }
     }
+
+    fun resetState() {
+        _uiState.value = AuthUiState.Idle
+        _tokenInput.value = ""
+    }
+
+    fun logout() {
+        authRepository.logout()
+        resetState()
+    }
 }
