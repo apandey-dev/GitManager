@@ -79,6 +79,7 @@ fun RepoDetailScreen(
     owner: String,
     repoName: String,
     viewModel: RepoViewModel,
+    currentUsername: String? = null,
     onBackClick: () -> Unit
 ) {
     val context = LocalContext.current
@@ -140,6 +141,9 @@ fun RepoDetailScreen(
             )
         } else {
             state.repo?.let { repo ->
+                val isOwner = (repo.permissions?.admin == true || repo.permissions?.push == true) ||
+                        (currentUsername != null && (repo.owner?.login.equals(currentUsername, ignoreCase = true) || owner.equals(currentUsername, ignoreCase = true)))
+
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -148,8 +152,9 @@ fun RepoDetailScreen(
                         .verticalScroll(rememberScrollState()),
                     verticalArrangement = Arrangement.spacedBy(14.dp)
                 ) {
-                    // Pill-shaped Segmented Action Bar (Share/QR, Edit, Delete)
-                    RepoSegmentedActionBar(
+                    // Separate Action Buttons (QR & Share, Edit [owner only], Delete [owner only])
+                    RepoActionButtonsBar(
+                        isOwner = isOwner,
                         onShareQrClick = { showQrShareBottomSheet = true },
                         onEditClick = { showEditBottomSheet = true },
                         onDeleteClick = { showDeleteBottomSheet = true },
@@ -457,98 +462,89 @@ fun RepoDetailScreen(
 }
 
 /**
- * Pill-shaped Segmented Button Group for Actions (Share, Edit, Delete)
+ * Separate Action Buttons (Share/QR, Edit, Delete) with less rounded borders (8dp)
  */
 @Composable
-fun RepoSegmentedActionBar(
+fun RepoActionButtonsBar(
+    isOwner: Boolean,
     onShareQrClick: () -> Unit,
     onEditClick: () -> Unit,
     onDeleteClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = modifier
-            .clip(CircleShape)
-            .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
-            .background(MaterialTheme.colorScheme.surface, CircleShape)
-            .height(IntrinsicSize.Min)
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // Segment 1: QR & Share
-            SegmentButtonItem(
-                icon = Icons.Outlined.QrCode,
-                label = "QR & Share",
-                onClick = onShareQrClick,
-                modifier = Modifier.weight(1.1f)
-            )
+        // Button 1: QR & Share (Available for all repositories)
+        RepoActionButton(
+            icon = Icons.Outlined.QrCode,
+            label = "QR & Share",
+            onClick = onShareQrClick,
+            modifier = Modifier.weight(1f)
+        )
 
-            VerticalDivider(
-                modifier = Modifier.fillMaxHeight().padding(vertical = 8.dp),
-                color = MaterialTheme.colorScheme.outline.copy(alpha = 0.7f),
-                thickness = 1.dp
-            )
-
-            // Segment 2: Edit
-            SegmentButtonItem(
+        // Show Edit & Delete ONLY if authenticated user is the owner/collaborator
+        if (isOwner) {
+            RepoActionButton(
                 icon = Icons.Outlined.Edit,
                 label = "Edit",
                 onClick = onEditClick,
-                modifier = Modifier.weight(0.9f)
+                modifier = Modifier.weight(1f)
             )
 
-            VerticalDivider(
-                modifier = Modifier.fillMaxHeight().padding(vertical = 8.dp),
-                color = MaterialTheme.colorScheme.outline.copy(alpha = 0.7f),
-                thickness = 1.dp
-            )
-
-            // Segment 3: Delete
-            SegmentButtonItem(
+            RepoActionButton(
                 icon = Icons.Outlined.Delete,
                 label = "Delete",
                 onClick = onDeleteClick,
                 isDanger = true,
-                modifier = Modifier.weight(0.9f)
+                modifier = Modifier.weight(1f)
             )
         }
     }
 }
 
 @Composable
-private fun SegmentButtonItem(
+private fun RepoActionButton(
     icon: ImageVector,
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     isDanger: Boolean = false
 ) {
+    val borderColor = if (isDanger) MonoDangerMuted.copy(alpha = 0.5f) else MaterialTheme.colorScheme.outline
     val contentColor = if (isDanger) MonoDangerMuted else MaterialTheme.colorScheme.onSurface
+    val bgColor = if (isDanger) MonoDangerMuted.copy(alpha = 0.06f) else MaterialTheme.colorScheme.surface
 
-    Row(
+    Box(
         modifier = modifier
-            .fillMaxHeight()
+            .clip(RoundedCornerShape(8.dp))
+            .border(1.dp, borderColor, RoundedCornerShape(8.dp))
+            .background(bgColor, RoundedCornerShape(8.dp))
             .clickable { onClick() }
-            .padding(vertical = 12.dp, horizontal = 10.dp),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
+            .padding(vertical = 10.dp, horizontal = 8.dp),
+        contentAlignment = Alignment.Center
     ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            modifier = Modifier.size(15.dp),
-            tint = contentColor
-        )
-        Spacer(modifier = Modifier.width(5.dp))
-        Text(
-            text = label,
-            style = MaterialTheme.typography.labelSmall.copy(
-                fontSize = 11.5.sp,
-                fontWeight = FontWeight.SemiBold
-            ),
-            color = contentColor
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.size(15.dp),
+                tint = contentColor
+            )
+            Spacer(modifier = Modifier.width(5.dp))
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelSmall.copy(
+                    fontSize = 11.5.sp,
+                    fontWeight = FontWeight.SemiBold
+                ),
+                color = contentColor
+            )
+        }
     }
 }

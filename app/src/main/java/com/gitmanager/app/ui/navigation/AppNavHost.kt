@@ -120,6 +120,7 @@ fun AppNavHost(
                     owner = owner,
                     repoName = repo,
                     viewModel = repoViewModel,
+                    currentUsername = authRepository.getCachedUser()?.login,
                     onBackClick = { navController.popBackStack() }
                 )
             }
