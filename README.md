@@ -143,11 +143,16 @@ flowchart TD
 
 ---
 
-## 📦 Releases
+## 📦 Releases & APK Downloads
 
-Pre-compiled APKs are available in the **[Releases](../../releases)** section:
+Download the latest version from the **[GitHub Releases](../../releases)** section. Choose the build that matches your target device:
 
-- **`app-debug.apk`**: Direct debug build for testing on any Android device.
+| APK File | Architecture | Supported Android Version | Description |
+|---|---|---|---|
+| **`GitManager-v1.0.0-universal.apk`** | **Universal** (All ABIs) | Android 7.0 (API 24) to Android 15+ | **Recommended** - Runs on all supported Android smartphones and tablets |
+| **`GitManager-v1.0.0-arm64-v8a.apk`** | **64-bit ARM** (`arm64-v8a`) | Android 10+ (and modern 64-bit phones) | Optimized, lightweight package for modern devices |
+| **`GitManager-v1.0.0-armeabi-v7a.apk`** | **32-bit ARM** (`armeabi-v7a`) | Android 7.0 to Android 10 / Budget | Optimized for older 32-bit hardware & legacy phones |
+| **`GitManager-v1.0.0-x86_64.apk`** | **64-bit x86** (`x86_64`) | Android 7.0+ | Optimized for Android Studio emulators and ChromeOS devices |
 
 ---
 
