@@ -64,6 +64,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gitmanager.app.R
+import com.gitmanager.app.ui.components.AuthenticatingOverlay
 import com.gitmanager.app.ui.components.MonochromeCard
 import com.gitmanager.app.ui.components.MonochromeTextField
 import com.gitmanager.app.ui.components.SlideToAuthenticateButton
@@ -80,7 +81,6 @@ fun LoginScreen(
     val snackbarHostState = remember { SnackbarHostState() }
 
     var showPatSheet by remember { mutableStateOf(false) }
-    var showHowToGetPat by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     LaunchedEffect(uiState) {
@@ -97,15 +97,20 @@ fun LoginScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         containerColor = MaterialTheme.colorScheme.background
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .padding(horizontal = 24.dp)
-                .navigationBarsPadding(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
+        if (uiState is AuthUiState.Loading) {
+            AuthenticatingOverlay(
+                modifier = Modifier.padding(innerPadding)
+            )
+        } else {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .padding(horizontal = 24.dp)
+                    .navigationBarsPadding(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
             // Top/Middle Section: Minimalist Hero with Official GitHub Logo
             Column(
                 modifier = Modifier
@@ -235,8 +240,9 @@ fun LoginScreen(
                 }
             }
         }
+    }
 
-        // PAT Bottom Sheet (No Cancel Icon/Button, Pill Slide to Authenticate)
+    // PAT Bottom Sheet (No Cancel Icon/Button, Pill Slide to Authenticate)
         if (showPatSheet) {
             ModalBottomSheet(
                 onDismissRequest = { showPatSheet = false },
