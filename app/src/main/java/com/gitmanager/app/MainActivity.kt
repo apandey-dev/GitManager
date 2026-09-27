@@ -55,7 +55,7 @@ class MainActivity : ComponentActivity() {
 
     private fun handleIntent(intent: Intent?) {
         val data: Uri? = intent?.data
-        if (data != null && data.scheme == "gitmanager" && data.host == "oauth") {
+        if (data != null && data.scheme == "gitmanager" && (data.host == "oauth" || data.host == "callback")) {
             val code = data.getQueryParameter("code")
             if (!code.isNullOrBlank()) {
                 authViewModel.handleOAuthCallback(code)

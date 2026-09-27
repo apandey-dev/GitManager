@@ -5,8 +5,10 @@ object Constants {
     const val GITHUB_OAUTH_AUTHORIZE_URL = "https://github.com/login/oauth/authorize"
     const val GITHUB_OAUTH_TOKEN_URL = "https://github.com/login/oauth/access_token"
 
-    // Default OAuth Client ID (Can be replaced with user's own GitHub OAuth App client ID)
-    const val OAUTH_CLIENT_ID = "Ov23litXexample" // Configurable in app/build or GitHub Developer settings
+    // GitHub OAuth App Configuration
+    // Paste your Client ID and Client Secret from GitHub Developer settings below:
+    const val OAUTH_CLIENT_ID = "YOUR_CLIENT_ID_HERE"
+    const val OAUTH_CLIENT_SECRET = "YOUR_CLIENT_SECRET_HERE"
     const val OAUTH_REDIRECT_URI = "gitmanager://oauth"
     const val OAUTH_SCOPES = "repo,user,delete_repo,read:org"
 

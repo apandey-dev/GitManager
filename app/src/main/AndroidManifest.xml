@@ -31,6 +31,9 @@
                 <data
                     android:host="oauth"
                     android:scheme="gitmanager" />
+                <data
+                    android:host="callback"
+                    android:scheme="gitmanager" />
             </intent-filter>
         </activity>
 

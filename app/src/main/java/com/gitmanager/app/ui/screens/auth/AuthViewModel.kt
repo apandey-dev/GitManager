@@ -65,7 +65,7 @@ class AuthViewModel(
     fun handleOAuthCallback(code: String) {
         viewModelScope.launch {
             _uiState.value = AuthUiState.Loading
-            when (val result = authRepository.handleOAuthCallback(code)) {
+            when (val result = authRepository.handleOAuthCallback(code, clientSecret = Constants.OAUTH_CLIENT_SECRET)) {
                 is Resource.Success -> {
                     _uiState.value = AuthUiState.Success(result.data)
                 }
