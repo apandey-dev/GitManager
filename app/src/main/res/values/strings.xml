@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">GitManager</string>
+    <string name="login_title">GitManager</string>
+    <string name="login_subtitle">Minimalist GitHub client for seamless repository CRUD &amp; discovery</string>
+    <string name="login_with_github">Sign in with GitHub</string>
+    <string name="login_with_token">Continue with Access Token</string>
+    <string name="token_placeholder">ghp_xxxxxxxxxxxxxxxxxxxx</string>
+    <string name="token_hint">Generate a classic token with \'repo\' and \'user\' scopes</string>
+    <string name="oauth_helper">You will be redirected to GitHub to authorize this application.</string>
+</resources>
