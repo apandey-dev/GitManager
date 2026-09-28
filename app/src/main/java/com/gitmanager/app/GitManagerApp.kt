@@ -1,11 +1,14 @@
 package com.gitmanager.app
 
 import android.app.Application
+import coil.ImageLoader
+import coil.ImageLoaderFactory
+import coil.decode.SvgDecoder
 import com.gitmanager.app.core.network.NetworkModule
 import com.gitmanager.app.data.repository.AuthRepository
 import com.gitmanager.app.data.repository.GitHubRepository
 
-class GitManagerApp : Application() {
+class GitManagerApp : Application(), ImageLoaderFactory {
 
     lateinit var authRepository: AuthRepository
         private set
@@ -22,5 +25,14 @@ class GitManagerApp : Application() {
 
         authRepository = AuthRepository(apiService, authPrefs)
         gitHubRepository = GitHubRepository(apiService)
+    }
+
+    override fun newImageLoader(): ImageLoader {
+        return ImageLoader.Builder(this)
+            .components {
+                add(SvgDecoder.Factory())
+            }
+            .crossfade(true)
+            .build()
     }
 }

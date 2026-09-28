@@ -19,3 +19,4 @@ data class GitHubUser(
     @SerializedName("twitter_username") val twitterUsername: String? = null,
     @SerializedName("created_at") val createdAt: String? = null
 )
+ 

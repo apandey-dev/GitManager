@@ -73,6 +73,7 @@ import com.gitmanager.app.ui.components.MonochromePrimaryButton
 import com.gitmanager.app.ui.components.MonochromeTextField
 import com.gitmanager.app.ui.components.MonochromeTopBar
 import com.gitmanager.app.ui.components.RepoQrShareBottomSheet
+import com.gitmanager.app.ui.components.markdown.MarkdownRenderer
 
 @Composable
 fun RepoDetailScreen(
@@ -398,11 +399,10 @@ fun RepoDetailScreen(
                                         strokeWidth = 2.dp
                                     )
                                 }
-                            } else if (state.readmeContent != null) {
-                                Text(
-                                    text = state.readmeContent!!,
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                            } else if (!state.readmeContent.isNullOrBlank()) {
+                                MarkdownRenderer(
+                                    markdown = state.readmeContent!!,
+                                    modifier = Modifier.fillMaxWidth()
                                 )
                             } else {
                                 Text(
